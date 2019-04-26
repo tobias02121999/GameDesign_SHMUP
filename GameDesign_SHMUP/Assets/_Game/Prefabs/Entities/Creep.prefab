@@ -189,7 +189,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706558227271096}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.27, y: 0.5, z: 24.76}
+  m_LocalPosition: {x: -5.27, y: 0.5, z: 29.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4889809802187630}
@@ -402,11 +402,14 @@ MonoBehaviour:
   wanderDuration: 100
   dashDuration: 25
   dashCooldown: 200
-  playerObject: {fileID: 0}
+  playerObject:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerTransform: []
+  targetTransform: {fileID: 0}
   chaseRangeTransform: {fileID: 4166465978091490}
   dashRangeTransform: {fileID: 4234368441123850}
   bullet: {fileID: 1374072720093050, guid: 5f08b2327c02b6f41a84c6ae9dd91b2b, type: 2}
-  playerTransform: {fileID: 0}
   enemyRigidbody: {fileID: 0}
 --- !u!114 &114915976150963794
 MonoBehaviour:

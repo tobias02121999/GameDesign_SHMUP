@@ -25,9 +25,13 @@ public class Player : MonoBehaviour
 
     public GameObject bullet;
 
+    public bool useGamepad;
+
     // Initialize the private variables
     float iHorizontal;
     float iVertical;
+
+    bool iShoot;
 
     Rigidbody playerRigidbody;
 
@@ -61,8 +65,18 @@ public class Player : MonoBehaviour
     void GetInput()
     {
         // Store the user input in variables
-        iHorizontal = Input.GetAxis("Horizontal");
-        iVertical = Input.GetAxis("Vertical");
+        if (!useGamepad)
+        {
+            iHorizontal = Input.GetAxis("Horizontal");
+            iVertical = Input.GetAxis("Vertical");
+            iShoot = Input.GetButtonDown("Shoot");
+        }
+        else
+        {
+            iHorizontal = Input.GetAxis("Horizontal G");
+            iVertical = Input.GetAxis("Vertical G");
+            iShoot = Input.GetButtonDown("Shoot G");
+        }
     }
 
     // Move the player around based on the user input
@@ -87,7 +101,7 @@ public class Player : MonoBehaviour
     // Fire a projectile towards the current aim
     void Shoot()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (iShoot)
         {
             var target = (GameObject)Instantiate(bullet, gunTransform.position + (gunTransform.forward * bulletDistance), gunTransform.rotation);
             target.transform.parent = null;

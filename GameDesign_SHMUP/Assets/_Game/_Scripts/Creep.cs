@@ -26,6 +26,7 @@ public class Creep : MonoBehaviour
         {
             // The idle enemy state
             case EnemyBehaviour.states.IDLE:
+                behaviour.GetTarget(); // Find the nearest player target transform
                 behaviour.IdleAlarm(); // Stay in the idle state for a defined time, before switching into the wander state
                 behaviour.CheckForChase(); // Check if the player is in range, and if so switch over to the chase state
                 behaviour.DashCooldown(); // Run the dash cooldown
@@ -34,6 +35,7 @@ public class Creep : MonoBehaviour
 
             // The wander enemy state
             case EnemyBehaviour.states.WANDER:
+                behaviour.GetTarget(); // Find the nearest player target transform
                 behaviour.WanderAlarm(); // Stay in the wander state for a defined time, before switching into the idle state
                 behaviour.CheckForChase(); // Check if the player is in range, and if so switch over to the chase state
                 behaviour.DashCooldown(); // Run the dash cooldown
@@ -42,7 +44,8 @@ public class Creep : MonoBehaviour
 
             // The chase enemy state
             case EnemyBehaviour.states.CHASE:
-                behaviour.LookAt(behaviour.playerTransform); // Rotate towards the player object
+                behaviour.GetTarget(); // Find the nearest player target transform
+                behaviour.LookAt(behaviour.targetTransform); // Rotate towards the player object
                 behaviour.Move(behaviour.chaseSpeed); // Move forward
                 behaviour.CheckForDash(); // Check if the player is in range, and if so switch over to the dash state
                 behaviour.DashCooldown(); // Run the dash cooldown
@@ -51,7 +54,8 @@ public class Creep : MonoBehaviour
 
             // The dash enemy state
             case EnemyBehaviour.states.DASH:
-                behaviour.LookAt(behaviour.playerTransform); // Rotate towards the player object
+                behaviour.GetTarget(); // Find the nearest player target transform
+                behaviour.LookAt(behaviour.targetTransform); // Rotate towards the player object
                 behaviour.DashAlarm(); // Wait for a defined time, before activating the dash and going back into the chase state
                 behaviour.CanDie(); // Check if the health has reached zero or below, and if so destroy the enemy object
                 break;

@@ -31,10 +31,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     public int dashCooldown;
 
-    public GameObject playerObject;
+    public GameObject[] playerObject;
 
     [HideInInspector]
-    public Transform playerTransform;
+    public Transform targetTransform;
 
     public Transform chaseRangeTransform;
     public Transform dashRangeTransform;
@@ -51,14 +51,23 @@ public class EnemyBehaviour : MonoBehaviour
     // Run this code once at the start
     void Start()
     {
-        // Get the player transform component
-        playerTransform = playerObject.transform;
-
         // Get the enemy rigidbody component
         enemyRigidbody = GetComponent<Rigidbody>();
 
         // Reset the health variable to equal the max health
         health = maxHealth;
+    }
+
+    // Find the nearest player target transform
+    public void GetTarget()
+    {
+        float dist1 = Vector3.Distance(transform.position, playerObject[0].transform.position);
+        float dist2 = Vector3.Distance(transform.position, playerObject[1].transform.position);
+
+        if (dist1 < dist2)
+            targetTransform = playerObject[0].transform;
+        else
+            targetTransform = playerObject[1].transform;
     }
 
     // Run the dash cooldown
@@ -114,7 +123,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Check if the player is in range, and if so switch over to the chase state
     public void CheckForChase()
     {
-        float dist = Vector3.Distance(transform.position, playerTransform.position);
+        float dist = Vector3.Distance(transform.position, targetTransform.position);
 
         if (dist <= (chaseRangeTransform.localScale.x / 2f))
             enemyState = states.CHASE;
@@ -123,7 +132,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Check if the player is in range, and if so switch over to the dash state
     public void CheckForDash()
     {
-        float dist = Vector3.Distance(transform.position, playerTransform.position);
+        float dist = Vector3.Distance(transform.position, targetTransform.position);
 
         if (dist <= (dashRangeTransform.localScale.x / 2f) && dashAlarm <= 0)
         {
@@ -136,7 +145,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Rotate towards the player object
     public void LookAt(Transform target)
     {
-        Vector3 targetDir = playerTransform.position - transform.position;
+        Vector3 targetDir = targetTransform.position - transform.position;
 
         float step = chaseTurnSpeed * Time.deltaTime;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0f);

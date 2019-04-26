@@ -4,8 +4,22 @@ using UnityEngine;
 
 public class Mouse : MonoBehaviour
 {
-	// Update is called once per frame
-	void Update ()
+    // Initialize the public variables
+    public bool useGamepad;
+    public GameObject playerObject;
+
+    // Initialize the private variables
+    Transform playerTransform;
+
+    // Run this code once at the start
+    void Start()
+    {
+        // Get the player transform component
+        playerTransform = playerObject.transform;
+    }
+
+    // Run this code every single frame
+    void Update ()
     {
         Move(); // Move the mouse to the correct position
     }
@@ -13,11 +27,20 @@ public class Mouse : MonoBehaviour
     // Move the mouse to the correct position
     void Move()
     {
-        Vector3 mouse = Input.mousePosition;
-        Ray castPoint = Camera.main.ScreenPointToRay(mouse);
-        RaycastHit hit;
+        if (!useGamepad)
+        {
+            Vector3 mouse = Input.mousePosition;
+            Ray castPoint = Camera.main.ScreenPointToRay(mouse);
+            RaycastHit hit;
 
-        if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
-            transform.position = new Vector3(hit.point.x, 0f, hit.point.z);
+            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
+                transform.position = new Vector3(hit.point.x, 0f, hit.point.z);
+        }
+        else
+        {
+            float inputHor = Input.GetAxis("Horizontal G R");
+            float inputVer = Input.GetAxis("Vertical G R");
+            transform.position = playerTransform.position + (inputHor * transform.right) + (inputVer * transform.forward);
+        }
     }
 }
