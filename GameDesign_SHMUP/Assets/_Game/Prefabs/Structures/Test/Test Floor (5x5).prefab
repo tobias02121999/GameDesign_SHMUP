@@ -86,7 +86,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 426026db4fb5d604f883cbc9177fc326, type: 2}
+  - {fileID: 2100000, guid: 321519c431679d947a689a3a9df35c4f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -29,11 +29,14 @@ public class Mouse : MonoBehaviour
     {
         if (!useGamepad)
         {
+            int layerMask = 1 << 13;
+
+
             Vector3 mouse = Input.mousePosition;
             Ray castPoint = Camera.main.ScreenPointToRay(mouse);
             RaycastHit hit;
 
-            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity))
+            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity, layerMask))
                 transform.position = new Vector3(hit.point.x, 0f, hit.point.z);
         }
         else

@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 114803548675346464}
   - component: {fileID: 54532069644779300}
   m_Layer: 10
-  m_Name: Bullet
+  m_Name: Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4512890478796456
 Transform:
   m_ObjectHideFlags: 1
